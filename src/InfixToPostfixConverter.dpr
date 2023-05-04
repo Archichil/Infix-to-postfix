@@ -3,7 +3,6 @@
 {$APPTYPE CONSOLE}
 
 uses
-  System.SysUtils,
   System.Generics.Collections;
 
 type
@@ -16,7 +15,37 @@ var
   ExpressionWithRank: TExpressionWithRank;
   InputExpression: string;
 
-function GetPrecedence(ASymbol: char): Integer;
+// Checks string for unallowed symbols, if encountered input again
+procedure CheckString(var AExpression: string);
+
+type
+  TCharacterSet = set of Char;
+
+const
+  AllowedSymbols: TCharacterSet = ['A'..'Z', 'a'..'z', '0'..'9', '+',
+  								  							'-', '*', '/', '^', '(', ')'];
+
+  // AllowedSymbols - set of symbols that are allowed to input
+
+var
+  IsCorrect: Boolean;
+  I: Integer;
+begin
+  IsCorrect := True;
+  for I := 1 to High(AExpression) do
+    if not (AExpression[i] in AllowedSymbols) then
+      IsCorrect := False;
+  if not IsCorrect then
+  begin
+    writeln('Unexpected symbols are found! Try again: ');
+    readln(AExpression);
+    CheckString(AExpression);
+  end;
+
+end;
+
+// Function to get relative precedence of the symbol
+function GetPrecedence(const ASymbol: char): Integer;
 begin
   case ASymbol of
     'A'..'Z', 'a'..'z', '0'..'9':
@@ -36,7 +65,8 @@ begin
   end;
 end;
 
-function GetStackPrecedence(ASymbol: char): Integer;
+// Function to get stack precedence of the symbol
+function GetStackPrecedence(const ASymbol: char): Integer;
 begin
   case ASymbol of
     'A'..'Z', 'a'..'z', '0'..'9':
@@ -54,7 +84,8 @@ begin
   end;
 end;
 
-function GetSymbolRank(ASymbol: char): Integer;
+// Function to get the rank of the symbol
+function GetSymbolRank(const ASymbol: char): Integer;
 begin
   case ASymbol of
     '+', '-', '*', '/', '^':
@@ -66,6 +97,7 @@ begin
   end;
 end;
 
+// Main function that converts infix expression to postfix
 function ConverInfixToPostfix(const AExpression: string): TExpressionWithRank;
 var
   Stack: TStack<Char>;
@@ -130,13 +162,15 @@ end;
 
 
 begin
-  Writeln('Input an expression to convert it from infix form to postfix form (reversed polish notation) and count its rank:');
+  Writeln('Input an expression to convert it from infix form to');
+  Writeln('postfix form (reversed polish notation) and count its rank: ');
   Readln(InputExpression);
-
+  CheckString(InputExpression);
   ExpressionWithRank:= ConverInfixToPostfix(InputExpression);
 
   Writeln('Postfix form: ', ExpressionWithRank.Expression);
   Writeln('Expression rank: ', ExpressionWithRank.ExpressionRank);
+
   if ExpressionWithRank.ExpressionRank = 1 then
     Writeln('Expression is accurate')
   else
