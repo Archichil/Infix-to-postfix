@@ -191,7 +191,6 @@ end;
 begin
   Writeln('Input an expression to convert it from infix form to');
   Writeln('postfix form (reversed polish notation) and count its rank: ');
-
   Readln(InputExpression);
   CheckString(InputExpression);
   ExpressionWithRank:= ConverInfixToPostfix(InputExpression);

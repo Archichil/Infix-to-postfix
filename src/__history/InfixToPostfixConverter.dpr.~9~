@@ -15,23 +15,6 @@ var
   ExpressionWithRank: TExpressionWithRank;
   InputExpression: string;
 
-// Remove all spaces
-procedure TrimSpaces(var AExpression: string);
-
-var
-  I: Integer;
-
-begin
-	I := 1;
-  while I <= High(AExpression) do
-  begin
-    if AExpression[i] = ' ' then
-      Delete(AExpression, i, 1)
-    else
-      Inc(i);
-  end;
-end;
-
 // Checks string for unallowed symbols, if encountered input again
 // Also checks for emptiness
 procedure CheckString(var AExpression: string);
@@ -51,7 +34,6 @@ var
 begin
   IsCorrect := True;
 
-  TrimSpaces(AExpression);
   if AExpression = '' then
   begin
     writeln('The string is empty. Try again:');
@@ -69,6 +51,22 @@ begin
     CheckString(AExpression);
   end;
 
+end;
+
+procedure TrimSpaces(var AExpression: string);
+
+var
+  I: Integer;
+
+begin
+	I := 1;
+  while I <= High(AExpression) do
+  begin
+    if AExpression[i] = ' ' then
+      Delete(AExpression, i, 1)
+    else
+      Inc(i);
+  end;
 end;
 
 // Function to get relative precedence of the symbol
@@ -191,8 +189,8 @@ end;
 begin
   Writeln('Input an expression to convert it from infix form to');
   Writeln('postfix form (reversed polish notation) and count its rank: ');
-
   Readln(InputExpression);
+ // TrimSpaces(InputExpression);
   CheckString(InputExpression);
   ExpressionWithRank:= ConverInfixToPostfix(InputExpression);
 
