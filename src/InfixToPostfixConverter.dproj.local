@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.544,C:\Users\Archichil\Desktop\Infix-to-postfix\src\InfixToPostfixConverter.dproj=C:\Users\Archichil\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.544,C:\Users\Archichil\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Users\Archichil\Desktop\Infix-to-postfix\src\InfixToPostfixConverter.dproj</Transaction>
     <Transaction>1899.12.30 00:00:00.000.651,=C:\Users\Archichil\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
   </Transactions>
 </BorlandProject>

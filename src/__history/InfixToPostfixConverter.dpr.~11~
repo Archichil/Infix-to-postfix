@@ -14,7 +14,6 @@ type
 var
   ExpressionWithRank: TExpressionWithRank;
   InputExpression: string;
-  IfContinue: string = '';
 
 // Remove all spaces
 procedure TrimSpaces(var AExpression: string);
@@ -163,8 +162,7 @@ begin
       end;
 
       // Remove open bracket from the stack
-      if not (Stack.Count = 0) then
-      	Stack.Pop;
+      Stack.Pop;
     end
 
     else
@@ -194,23 +192,17 @@ begin
   Writeln('Input an expression to convert it from infix form to');
   Writeln('postfix form (reversed polish notation) and count its rank: ');
 
-  while not (IfContinue = '0') do
-  begin
-    Readln(InputExpression);
-  	CheckString(InputExpression);
-  	ExpressionWithRank:= ConverInfixToPostfix(InputExpression);
-    Writeln('Postfix form: ', ExpressionWithRank.Expression);
-    Writeln('Expression rank: ', ExpressionWithRank.ExpressionRank);
+  Readln(InputExpression);
+  CheckString(InputExpression);
+  ExpressionWithRank:= ConverInfixToPostfix(InputExpression);
 
-    if ExpressionWithRank.ExpressionRank = 1 then
-      Writeln('Expression is accurate')
-    else
-      Writeln('Expression is inaccurate');
+  Writeln('Postfix form: ', ExpressionWithRank.Expression);
+  Writeln('Expression rank: ', ExpressionWithRank.ExpressionRank);
 
-    write('Would you like to continue? (1 - Yes / 0 - No): ');
-    readln(IfContinue);
-    if IfContinue = '1' then
-      writeln('Input an expression: ');
-  end;
+  if ExpressionWithRank.ExpressionRank = 1 then
+    Writeln('Expression is accurate')
+  else
+    Writeln('Expression is inaccurate');
 
+  Readln;
 end.
